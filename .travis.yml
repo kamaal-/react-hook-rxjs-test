@@ -8,7 +8,3 @@ script:
   - npm install
   - npm test --coverage
   - npm run build
-deploy:
-  local_dir: build
-  on:
-    branch: master
