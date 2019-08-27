@@ -7,7 +7,7 @@ cache:
 script:
   - npm install
   - npm test --coverage
-  - npm run build
+  - npm build
 deploy:
   local_dir: build
   on:
