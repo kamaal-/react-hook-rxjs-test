@@ -6,7 +6,7 @@ type Props = {
 }
 
 const Button:SFC<Props> = (props:Props) => {
-    return <button>Hello</button>
+    return <button data-testid="btn">Hello</button>
 }
 
 export default Button
