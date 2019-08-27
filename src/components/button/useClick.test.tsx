@@ -1,8 +1,10 @@
 import React from 'react'
 import {isString, makeObservable} from './useClick'
 import {Observable} from 'rxjs'
+import {map, debounceTime} from 'rxjs/operators'
 import Button from './Button'
-import { render } from '@testing-library/react'
+import { render, fireEvent, waitForElement } from '@testing-library/react'
+import {act} from 'react-dom/test-utils'
 
 describe('useClick', () => {
 
@@ -46,5 +48,34 @@ describe('makeObservable', () => {
         const el = getByTestId('btn') as HTMLButtonElement
         const observable = makeObservable(el, 'click')
         expect(observable instanceof Observable).toBe(true)
+    })
+})
+
+describe('Observable', () => {
+    it('Should subscribe observable', async (done) => {
+        await act( async () => {
+            const {getByTestId} = render(<Button/>)
+            const el = await waitForElement(() => getByTestId('btn')) as HTMLButtonElement
+            const observerble =  makeObservable(el, 'click');
+            if(observerble){
+                let count = 1
+                observerble
+                    .pipe(
+                        map(e => count++),
+                        debounceTime(400)
+                    )
+                    .subscribe(s => {
+                        expect(s).toEqual(6)
+                        done()
+                    })
+                
+                fireEvent.click(el)
+                fireEvent.click(el)
+                fireEvent.click(el)
+                fireEvent.click(el)
+                fireEvent.click(el)
+                fireEvent.click(el)
+            }
+        })
     })
 })
