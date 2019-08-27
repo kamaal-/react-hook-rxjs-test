@@ -7,5 +7,5 @@ describe('Button component', () => {
         const div = document.createElement('div');
         ReactDOM.render(<Button />, div);
         ReactDOM.unmountComponentAtNode(div);
-      });
+    });
 })
