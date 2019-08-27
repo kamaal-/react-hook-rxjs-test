@@ -1,4 +1,5 @@
 import React, { SFC} from 'react'
+import {useClick} from './useClick'
 
 type Props = {
     interval?: number;
@@ -6,7 +7,8 @@ type Props = {
 }
 
 const Button:SFC<Props> = (props:Props) => {
-    return <button data-testid="btn">Hello</button>
+    const {ref, count} = useClick(props.interval)
+    return <button data-testid="btn" ref={ref}>Hello {count}</button>
 }
 
 export default Button
