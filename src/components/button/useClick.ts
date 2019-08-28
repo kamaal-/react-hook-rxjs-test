@@ -31,7 +31,7 @@ export const useClick = (time:number = 500):Result => {
                 map(e => _count++),
                 debounceTime(time)
             )
-            const subscribe = subscribable.subscribe(fireAfterSubscribe)
+            subscribe = subscribable.subscribe(fireAfterSubscribe)
         }
         return () => subscribe && subscribe.unsubscribe()
     // eslint-disable-next-line
